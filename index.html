@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Chronicle</title>
+<meta name="description" content="Privacy policy for Chronicle, the on-device photo and video gallery for Android.">
+<style>
+  :root { --fg:#1a1a1a; --muted:#5a5a5a; --line:#e2e2e2; --accent:#166534; --bg:#ffffff; --soft:#f4f7f4; }
+  * { box-sizing: border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.65; font-size:17px;
+  }
+  main { max-width:780px; margin:0 auto; padding:48px 22px 96px; }
+  h1 { font-size:1.9rem; line-height:1.25; margin:0 0 6px; }
+  .updated { color:var(--muted); font-size:.95rem; margin:0 0 28px; }
+  h2 { font-size:1.2rem; margin:38px 0 10px; }
+  h3 { font-size:1.02rem; margin:24px 0 6px; }
+  p, li { color:var(--fg); }
+  ul, ol { padding-left:22px; }
+  li { margin:7px 0; }
+  a { color:var(--accent); }
+  .lead { font-size:1.02rem; }
+  .summary { background:var(--soft); border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin:26px 0; }
+  .summary h2 { margin-top:0; }
+  .note { border-left:3px solid var(--accent); padding:2px 0 2px 16px; margin:22px 0; color:var(--fg); }
+  hr { border:0; border-top:1px solid var(--line); margin:40px 0; }
+  footer { color:var(--muted); font-size:.9rem; margin-top:40px; }
+  strong { font-weight:600; }
+  table { width:100%; border-collapse:collapse; margin:16px 0; font-size:.95rem; }
+  th, td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { font-weight:600; background:var(--soft); }
+  code { background:var(--soft); padding:1px 5px; border-radius:4px; font-size:.9em; }
+  .toc { font-size:.95rem; }
+  .toc li { margin:4px 0; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Privacy Policy for Chronicle</h1>
+<p class="updated">Last updated: 2 November 2026 · Applies to Chronicle for Android, version 1.0 and later</p>
+
+<p class="lead">
+Chronicle is an Android photo and video gallery. This policy explains exactly what the app accesses,
+where that information goes, and the control you have over it. It is written to be read, not to be
+skipped — and every claim in it can be checked against the app itself.
+</p>
+
+<div class="summary">
+<h2>In short</h2>
+<ul>
+  <li><strong>Chronicle has no server, no account and no sign-in.</strong> There is nothing to register for and nothing of yours stored by us.</li>
+  <li><strong>The app does not request the Android <code>INTERNET</code> permission.</strong> It therefore cannot send your photos, videos, face data or anything else off your device. This is enforced by Android, not just promised by us.</li>
+  <li><strong>Everything Chronicle works out stays on your phone:</strong> your favourites, your search index, your settings, and the face grouping data used to sort photos by the people in them.</li>
+  <li><strong>There are no ads, no analytics, no crash reporting and no tracking SDKs.</strong> No third-party company receives data from this app.</li>
+  <li><strong>You can delete everything at any time</strong> by clearing the app's storage or uninstalling it. There is no copy anywhere else for us to delete.</li>
+</ul>
+</div>
+
+<h2>Contents</h2>
+<ol class="toc">
+  <li><a href="#who">Who we are and what this policy covers</a></li>
+  <li><a href="#access">What Chronicle accesses on your device</a></li>
+  <li><a href="#faces">Face grouping, and what it does and does not do</a></li>
+  <li><a href="#permissions">Permissions and why each one exists</a></li>
+  <li><a href="#stored">What is stored on your device</a></li>
+  <li><a href="#notdo">What Chronicle does not do</a></li>
+  <li><a href="#third">Third parties and other apps</a></li>
+  <li><a href="#backup">Android backup</a></li>
+  <li><a href="#sharing">Sharing, editing and the clipboard</a></li>
+  <li><a href="#delete">Deletion and retention</a></li>
+  <li><a href="#security">Security</a></li>
+  <li><a href="#children">Children</a></li>
+  <li><a href="#rights">Your rights and choices</a></li>
+  <li><a href="#changes">Changes to this policy</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li><a href="#datasafety">Summary for the Google Play Data safety section</a></li>
+</ol>
+
+<h2 id="who">1. Who we are and what this policy covers</h2>
+<p>
+Chronicle is developed and published by <strong>Mayur Jindal</strong>, an independent developer
+("we", "us"). This policy covers the Chronicle Android application (package
+<code>com.myurrrjj.chronicle</code>) and nothing else. It does not cover other apps, websites or
+services you may reach from Chronicle, including any app you choose to share a photo with.
+</p>
+<p>
+Because Chronicle has no account and no server, we do not hold a database of users. The personal
+information described in this policy is processed on your own device, under your control, and is
+never transmitted to us.
+</p>
+
+<h2 id="access">2. What Chronicle accesses on your device</h2>
+<p>
+Chronicle reads your media library through Android's <code>MediaStore</code> — the same system
+index your phone's built-in gallery uses. It reads only the photos and videos you have allowed it
+to see, and only to display them.
+</p>
+<table>
+  <tr><th>What</th><th>Why</th><th>Where it goes</th></tr>
+  <tr>
+    <td>Photos and videos in your library (thumbnails, full images, video streams)</td>
+    <td>To show the grid, albums, the detail view and the video player</td>
+    <td>Stays on your device</td>
+  </tr>
+  <tr>
+    <td>Basic file information: file name, folder, size, date added, MIME type, width, height, duration</td>
+    <td>To group media by day, month and year, sort it, and show item details</td>
+    <td>Stays on your device</td>
+  </tr>
+  <tr>
+    <td>Photo metadata (EXIF): image dimensions, camera make and model, aperture, exposure time, ISO, focal length</td>
+    <td>To display the information sheet for a photo</td>
+    <td>Stays on your device</td>
+  </tr>
+  <tr>
+    <td>Face data derived from your photos — see <a href="#faces">section 3</a></td>
+    <td>To group photos of the same person together</td>
+    <td>Stays on your device</td>
+  </tr>
+  <tr>
+    <td>Your in-app settings (autoplay videos, default view mode) and your favourites</td>
+    <td>To remember how you like the app arranged</td>
+    <td>Stays on your device</td>
+  </tr>
+</table>
+<div class="note">
+  <p>
+  <strong>Location is not read.</strong> Chronicle does not read GPS data from your photos, does not
+  request any location permission, and does not show or store where a photo was taken.
+  </p>
+</div>
+
+<h2 id="faces">3. Face grouping, and what it does and does not do</h2>
+<p>
+Chronicle can group the photos in your library by the people in them, so that every photo of the same
+person sits together. This is the most sensitive thing the app does, so here is the full account of it.
+</p>
+<h3>How it works</h3>
+<ul>
+  <li>While you use the gallery, a background task looks through your photos for faces. While this is
+  running, Android shows a notification ("Gallery: Finding People") because the work continues briefly
+  even if you switch away. You can turn notifications off for Chronicle in Android settings.</li>
+  <li>Faces are found using <strong>Google ML Kit's face detection</strong>, in its bundled form: the
+  detection model is shipped inside the app and runs entirely on your phone. Nothing is sent to Google
+  or downloaded from Google at runtime.</li>
+  <li>Each detected face is turned into a <strong>face embedding</strong> — a list of numbers that
+  describes the geometry of that face — using a TensorFlow Lite model
+  (<code>sface_embedder_fp32.tflite</code>) that is also bundled inside the app.</li>
+  <li>Embeddings that are mathematically similar are grouped together by an on-device clustering
+  algorithm. That grouping is what appears in the app as "people".</li>
+  <li>The group names are just labels. If the app shows a name for a group, it is a label you typed,
+  or a placeholder. Chronicle does not know, guess, or look up who anyone actually is.</li>
+</ul>
+<h3>What is stored, and where</h3>
+<p>
+The face embeddings, the bounding boxes of the faces in each photo, the groups they were sorted into
+and the processing status of each item are stored in a private database inside the app's own storage.
+They are never uploaded, never shared, and never sent to us or anyone else.
+</p>
+<h3>What Chronicle does not do with faces</h3>
+<ul>
+  <li>It does not identify anyone. There is no matching against any database of real people, and no
+  name is ever attached to a face by the app.</li>
+  <li>It does not use faces for authentication, unlocking, or any security decision.</li>
+  <li>It does not send face data, face crops, embeddings or derived templates anywhere. The app has no
+  internet permission, so it could not even if it tried.</li>
+  <li>It does not use your photos or face data to train any model. The models are fixed and shipped
+  inside the app.</li>
+</ul>
+<h3>How to remove face data</h3>
+<p>
+Clearing Chronicle's storage (Android Settings → Apps → Chronicle → Storage &amp; cache →
+Clear storage) deletes the entire face database along with everything else the app has saved.
+Uninstalling the app does the same. Because face data is derived from photos that remain in your
+library, it is not recreated unless the app indexes your library again after you reinstall.
+</p>
+<p>
+Version 1.0 groups faces automatically as part of normal use and does not include a separate on/off
+switch. If you would prefer not to have this happen, the effective options today are to clear the app's
+storage after using it, or to uninstall it. We intend to add a control for this in a future version;
+this policy will be updated when we do.
+</p>
+
+<h2 id="permissions">4. Permissions and why each one exists</h2>
+<table>
+  <tr><th>Permission</th><th>What it allows</th><th>Why Chronicle asks</th></tr>
+  <tr>
+    <td><code>READ_MEDIA_IMAGES</code><br><code>READ_MEDIA_VIDEO</code></td>
+    <td>Read photos and videos from your library (Android 13 and later)</td>
+    <td>To display your media. The app never writes to these files unless you explicitly delete something.</td>
+  </tr>
+  <tr>
+    <td><code>READ_MEDIA_VISUAL_USER_SELECTED</code></td>
+    <td>Access only the photos and videos you hand-pick (Android 14 and later)</td>
+    <td>So you can use Chronicle with limited access instead of granting your whole library. The app works with just the items you select.</td>
+  </tr>
+  <tr>
+    <td><code>READ_EXTERNAL_STORAGE</code> <em>(capped at Android 12L and below)</em></td>
+    <td>Read media on older Android versions</td>
+    <td>The older equivalent of the media permissions above. It is not requested on newer Android versions.</td>
+  </tr>
+  <tr>
+    <td><code>POST_NOTIFICATIONS</code></td>
+    <td>Show notifications</td>
+    <td>To show the progress notification while the app indexes faces in the background.</td>
+  </tr>
+  <tr>
+    <td><code>FOREGROUND_SERVICE</code><br><code>FOREGROUND_SERVICE_DATA_SYNC</code></td>
+    <td>Keep a short task running with a visible notification</td>
+    <td>So face indexing is not killed when you leave the app, and so you can always see that it is running.</td>
+  </tr>
+</table>
+<p>
+Chronicle does <strong>not</strong> request the camera, microphone, location, contacts, calendar,
+phone state, SMS, activity recognition or internet permissions.
+</p>
+
+<h2 id="stored">5. What is stored on your device</h2>
+<p>
+Everything Chronicle saves lives in the app's private storage area, which other apps cannot read:
+</p>
+<ul>
+  <li><strong>A local database</strong> holding your favourites, the face embeddings and people groups
+  described above, which items have been processed, and a search index of terms so search is fast.</li>
+  <li><strong>Your settings</strong> — whether videos autoplay, and which view mode you prefer.</li>
+  <li><strong>An image cache</strong> in the app's cache directory, so thumbnails and photos load quickly
+  when you scroll. Android and the app clear this cache as space is needed; you can also clear it yourself
+  from Android's storage settings.</li>
+</ul>
+<p>
+Chronicle does not copy your photos or videos into its own storage. It reads them where they already
+are. The one exception is the thumbnail cache described above, which is a display cache, not a copy of
+your library.
+</p>
+
+<h2 id="notdo">6. What Chronicle does not do</h2>
+<ul>
+  <li>No user accounts, sign-in, profiles or cloud sync.</li>
+  <li>No advertising, and no advertising identifiers.</li>
+  <li>No analytics, telemetry, crash reporting or usage tracking of any kind.</li>
+  <li>No third-party SDKs that collect data. The only Google components are ML Kit's face detection and
+  TensorFlow Lite, both of which run entirely on your device.</li>
+  <li>No selling, renting or sharing of your information — we never receive it.</li>
+  <li>No access to your contacts, location, microphone, calendar or messages.</li>
+  <li>No upload of your photos, videos, metadata or face data to any server, ours or anyone else's.</li>
+</ul>
+
+<h2 id="third">7. Third parties and other apps</h2>
+<p>
+There is no third party that receives your data from Chronicle. For completeness, here is what is
+involved in making the app work:
+</p>
+<ul>
+  <li><strong>Google ML Kit (face detection)</strong> and <strong>TensorFlow Lite</strong> — on-device
+  machine learning libraries bundled inside the app. They process images locally and have no network
+  access in this app.</li>
+  <li><strong>Android system components</strong> — <code>MediaStore</code> for reading your library,
+  <code>WorkManager</code> for the background indexing task, and the system notification service. These
+  are part of your phone's operating system.</li>
+  <li><strong>Google Play</strong> — when you install or update Chronicle, Google processes that
+  transaction under Google's own privacy policy. We receive only the aggregate, anonymous statistics
+  that Google Play provides to every developer (such as install counts and crash-free rates), never
+  anything that identifies you.</li>
+</ul>
+<p>
+If you use the share sheet to send a photo to another app — a chat app, a cloud drive, an editor — that
+app receives the file, and its own privacy policy governs what happens next. That transfer is always
+started by you, one file at a time, with a system confirmation.
+</p>
+
+<h2 id="backup">8. Android backup</h2>
+<p>
+Android can back up app data to your own Google account, so that your apps come back when you set up a
+new phone. Chronicle allows this, which means your favourites, your settings and the face grouping
+database may be included in <em>your</em> Android backup.
+</p>
+<p>
+That backup belongs to your Google account and is controlled by your device's backup settings — not by
+us, and we cannot read it. You can turn it off, or delete existing backups, in Android Settings →
+System → Backup, or in your Google account settings. If you would rather nothing at all left the
+device in any form, turn Android backup off for this app, or clear the app's storage before you stop
+using it.
+</p>
+
+<h2 id="sharing">9. Sharing, editing and the clipboard</h2>
+<ul>
+  <li><strong>Share and edit</strong> — when you share a photo or video, or send it to an editor, Chronicle
+  hands that single file to the app you choose through Android's share sheet, with temporary read
+  permission. It does not share anything else, and it does not keep a record of what you shared.</li>
+  <li><strong>Copy</strong> — the copy action puts a reference to the selected item on the system
+  clipboard, so you can paste it into another app. The clipboard is managed by Android; other apps you
+  paste into will receive it.</li>
+  <li><strong>Delete</strong> — deleting a photo or video is done through Android's own deletion dialog.
+  Chronicle asks the system to delete the item; Android shows you the confirmation. Chronicle cannot
+  delete anything without that confirmation on modern Android versions.</li>
+</ul>
+
+<h2 id="delete">10. Deletion and retention</h2>
+<p>
+We do not retain your data, because we never receive it. There is no server-side copy and no backup of
+ours. On your device:
+</p>
+<ul>
+  <li><strong>Delete individual media</strong> in the app, with the system confirmation prompt. This
+  removes the file from your device's library.</li>
+  <li><strong>Clear the app's data</strong> — Android Settings → Apps → Chronicle → Storage &amp; cache →
+  Clear storage. This erases the database (favourites, face data, search index) and your settings. Your
+  photos and videos are untouched.</li>
+  <li><strong>Uninstall Chronicle</strong> — removes everything the app ever stored on your device.</li>
+</ul>
+<p>
+If you have Android backup enabled, a copy of the app's data may persist in your Google account backup
+until that backup is replaced or deleted — see <a href="#backup">section 8</a> for how to control it.
+</p>
+<div class="note">
+  <p>
+  <strong>Chronicle is not a backup service.</strong> It is a viewer for the media already on your phone.
+  Deleting a file in Chronicle deletes it from your device. Keep your own backups of anything you would
+  be sorry to lose.
+  </p>
+</div>
+
+<h2 id="security">11. Security</h2>
+<p>
+Because nothing is transmitted, there is no data in transit to protect. On the device, Chronicle's
+database, settings and cache sit in the app's private storage, which Android isolates from other apps.
+Chronicle does not request the internet permission, so no code path in the app can send your data out.
+</p>
+<p>
+No system is perfectly secure. Someone with physical access to an unlocked device, a rooted device, or
+malware with elevated privileges could potentially reach app data. Chronicle has no separate passcode or
+lock of its own, so the security of your photos is the security of your phone — keep your device lock
+on and your OS updated.
+</p>
+
+<h2 id="children">12. Children</h2>
+<p>
+Chronicle is a general-purpose gallery, not directed at children, and it has no accounts, no social
+features, no advertising and no way to communicate with anyone. We do not knowingly collect information
+from anyone, including children, because the app does not collect information off the device at all.
+</p>
+<p>
+Your photo library may of course contain images of children. Those images are processed exactly like any
+other image — on your device, never uploaded — and face grouping on them stays on the device too.
+</p>
+
+<h2 id="rights">13. Your rights and choices</h2>
+<p>
+Privacy laws such as India's Digital Personal Data Protection Act, 2023, and the GDPR in Europe, give
+you rights over personal data — to know what is processed, to access it, to correct it, and to have it
+erased. In Chronicle these rights are exercised directly on your device, because that is where all the
+data is:
+</p>
+<ul>
+  <li><strong>Access and portability</strong> — your photos and videos remain in your own library,
+  readable by any gallery app. Chronicle does not hold them.</li>
+  <li><strong>Correction</strong> — edit or rename anything through your device's file tools or another
+  gallery app; Chronicle re-reads the library.</li>
+  <li><strong>Erasure</strong> — clear the app's storage or uninstall it (see
+  <a href="#delete">section 10</a>).</li>
+  <li><strong>Withdrawing access</strong> — revoke the photo and video permissions, or switch Chronicle
+  to limited access, in Android Settings → Apps → Chronicle → Permissions. The app will simply show fewer
+  items.</li>
+  <li><strong>Questions or complaints</strong> — write to the address in
+  <a href="#contact">section 15</a> and we will answer.</li>
+</ul>
+
+<h2 id="changes">14. Changes to this policy</h2>
+<p>
+If a future version of Chronicle changes what it accesses or how it handles data — for example if a
+feature is added that needs network access — this policy will be updated before that version is
+released, and the "last updated" date at the top will change. The current version of this policy always
+lives at this URL, which is the link used on the Google Play listing.
+</p>
+
+<h2 id="contact">15. Contact</h2>
+<p>
+Chronicle is developed by <strong>Mayur Jindal</strong>.<br>
+Email: <a href="mailto:mayurjindal905@gmail.com">mayurjindal905@gmail.com</a>
+</p>
+<p>
+Questions about this policy, or about privacy in Chronicle, are welcome at that address. See also
+<a href="./data-deletion.html">how to delete your data</a>.
+</p>
+
+<h2 id="datasafety">16. Summary for the Google Play Data safety section</h2>
+<p>
+This section restates the above in the terms Google Play uses, so the two can be checked against each
+other.
+</p>
+<table>
+  <tr><th>Play Data safety question</th><th>Answer for Chronicle</th></tr>
+  <tr><td>Does the app collect or share any of the required user data types?</td><td>No. Nothing is transmitted off the device by the developer, so nothing is collected or shared.</td></tr>
+  <tr><td>Is all of the user data encrypted in transit?</td><td>Not applicable — there is no transmission. The app has no internet permission.</td></tr>
+  <tr><td>Can users request that their data be deleted?</td><td>Yes — by clearing the app's storage or uninstalling it, at any time, with no request to us needed.</td></tr>
+  <tr><td>Data processed on the device only</td><td>Photos and videos, photo metadata, face data used for grouping, app settings and favourites.</td></tr>
+  <tr><td>Permissions declared</td><td>Photo and video read access (including limited access), notifications, foreground service.</td></tr>
+  <tr><td>Ads or analytics SDKs</td><td>None.</td></tr>
+</table>
+
+<hr>
+
+<footer>
+  <p>Privacy Policy for Chronicle · Last updated 2 November 2026 · Version 1.0</p>
+  <p>Document history: 1.0 — 2 November 2026 — first published, covering Chronicle 1.0 for Android.</p>
+</footer>
+
+</main>
+</body>
+</html>
