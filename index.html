@@ -41,7 +41,7 @@
 <main>
 
 <h1>Privacy Policy for Chronicle</h1>
-<p class="updated">Last updated: 2 November 2026 · Applies to Chronicle for Android, version 1.0 and later</p>
+<p class="updated">Last updated: 23 November 2026 · Applies to Chronicle for Android, version 1.2 and later</p>
 
 <p class="lead">
 Chronicle is an Android photo and video gallery. This policy explains exactly what the app accesses,
@@ -52,10 +52,11 @@ skipped — and every claim in it can be checked against the app itself.
 <div class="summary">
 <h2>In short</h2>
 <ul>
-  <li><strong>Chronicle has no server, no account and no sign-in.</strong> There is nothing to register for and nothing of yours stored by us.</li>
-  <li><strong>The app does not request the Android <code>INTERNET</code> permission.</strong> It therefore cannot send your photos, videos, face data or anything else off your device. This is enforced by Android, not just promised by us.</li>
-  <li><strong>Everything Chronicle works out stays on your phone:</strong> your favourites, your search index, your settings, and the face grouping data used to sort photos by the people in them.</li>
-  <li><strong>There are no ads, no analytics, no crash reporting and no tracking SDKs.</strong> No third-party company receives data from this app.</li>
+  <li><strong>Chronicle has no server of its own, no account and no sign-in.</strong> There is nothing to register for and nothing of yours stored by us.</li>
+  <li><strong>Your photos, videos, face data and file metadata never leave your phone.</strong> They are not uploaded anywhere, by us or by anyone else.</li>
+  <li><strong>Everything Chronicle works out stays on your phone:</strong> your favourites, your search index, your settings, the face grouping data, and the coordinates of your geotagged photos.</li>
+  <li><strong>Two small things do go out, and only when you use the map:</strong> a single coordinate is sent to your phone's geocoding service to turn it into a place name (usually Google), and map tiles are downloaded from OpenFreeMap. Both are described in full in <a href="#location">section 4</a>.</li>
+  <li><strong>There are no ads, no analytics, no crash reporting and no tracking SDKs.</strong></li>
   <li><strong>You can delete everything at any time</strong> by clearing the app's storage or uninstalling it. There is no copy anywhere else for us to delete.</li>
 </ul>
 </div>
@@ -65,6 +66,7 @@ skipped — and every claim in it can be checked against the app itself.
   <li><a href="#who">Who we are and what this policy covers</a></li>
   <li><a href="#access">What Chronicle accesses on your device</a></li>
   <li><a href="#faces">Face grouping, and what it does and does not do</a></li>
+  <li><a href="#location">Location, place names and the map</a></li>
   <li><a href="#permissions">Permissions and why each one exists</a></li>
   <li><a href="#stored">What is stored on your device</a></li>
   <li><a href="#notdo">What Chronicle does not do</a></li>
@@ -126,11 +128,19 @@ to see, and only to display them.
     <td>To remember how you like the app arranged</td>
     <td>Stays on your device</td>
   </tr>
+  <tr>
+    <td>GPS coordinates stored inside your files (EXIF in photos, container metadata in videos)</td>
+    <td>To place your photos on a map and show where each one was taken — see <a href="#location">section 4</a></td>
+    <td>Stored on your device; one coordinate at a time is sent to your phone's geocoder to obtain a place name</td>
+  </tr>
 </table>
 <div class="note">
   <p>
-  <strong>Location is not read.</strong> Chronicle does not read GPS data from your photos, does not
-  request any location permission, and does not show or store where a photo was taken.
+  <strong>Location works differently from the rest.</strong> Chronicle reads the GPS coordinates that
+  are already stored inside your photos and videos, so it can show them on a map — but only if you grant
+  <code>ACCESS_MEDIA_LOCATION</code>. It never asks Android for your device's current location, and it has
+  no permission that would allow it to. Naming a place is the one thing that requires the internet, and
+  it is described in full in <a href="#location">section 4</a>.
   </p>
 </div>
 
@@ -166,8 +176,9 @@ They are never uploaded, never shared, and never sent to us or anyone else.
   <li>It does not identify anyone. There is no matching against any database of real people, and no
   name is ever attached to a face by the app.</li>
   <li>It does not use faces for authentication, unlocking, or any security decision.</li>
-  <li>It does not send face data, face crops, embeddings or derived templates anywhere. The app has no
-  internet permission, so it could not even if it tried.</li>
+  <li>It does not send face data, face crops, embeddings or derived templates anywhere. The app's only
+  network use is looking up a place name for a coordinate and downloading map tiles, and neither of those
+  involves a photo or a face.</li>
   <li>It does not use your photos or face data to train any model. The models are fixed and shipped
   inside the app.</li>
 </ul>
@@ -177,6 +188,69 @@ Clearing Chronicle's storage (Android Settings → Apps → Chronicle → Storag
 Clear storage) deletes the entire face database along with everything else the app has saved.
 Uninstalling the app does the same. Because face data is derived from photos that remain in your
 library, it is not recreated unless the app indexes your library again after you reinstall.
+
+<h2 id="location">4. Location, place names and the map</h2>
+<p>
+Chronicle can show your photos on a map, and it can tell you where a photo was taken. This is the one
+part of the app where something leaves your device, so it gets its own section.
+</p>
+<h3>What is read</h3>
+<ul>
+  <li><strong>GPS coordinates stored inside your files.</strong> Many photos carry a latitude and
+  longitude in their EXIF header, written by the camera at the moment the shot was taken. Some videos
+  carry the same information in their MP4 container metadata. Chronicle reads these only if you grant
+  <code>ACCESS_MEDIA_LOCATION</code>; without that permission, Android strips the coordinates before the
+  app is handed the file, and Chronicle records nothing.</li>
+  <li><strong>Nothing about where your phone is right now.</strong> Chronicle never asks Android for the
+  device's current location. It holds no <code>ACCESS_FINE_LOCATION</code> or
+  <code>ACCESS_COARSE_LOCATION</code> permission and contains no code that would use one. The only
+  coordinates it ever sees are the ones baked into the files themselves, which may be years old.</li>
+</ul>
+<h3>What is stored on your device</h3>
+<ul>
+  <li>The coordinates of each geotagged item, in the same private database as everything else.</li>
+  <li>A small <strong>place cache</strong>: for each area of roughly 5 km, the city, state and country
+  name, so the app never has to look the same place up twice.</li>
+</ul>
+<h3>The two things that leave your device</h3>
+<p>
+Turning a coordinate into a readable name — "28.6139, 77.2090" into "New Delhi, India" — cannot be done
+offline. Chronicle uses two ordinary internet services for it. Both are listed here in full.
+</p>
+<ol>
+  <li>
+    <strong>Reverse geocoding, through Android's built-in geocoder.</strong> The app hands a coordinate
+    to <code>android.location.Geocoder</code>, which is part of your phone's operating system. On most
+    devices that request is answered by <strong>Google Play services</strong> from Google's servers, so
+    the coordinate — together with your IP address, as with any internet request — reaches Google.
+    Google returns a place name and nothing else. Chronicle sends only coordinates: never a photo, a
+    face, a filename, or anything that identifies you. It keeps no record of the request, and it caches
+    the answer on your device so the same coordinate is not sent twice. Google's handling of that request
+    is governed by Google's privacy policy. If your device has no geocoding provider, or you are offline,
+    this step is skipped and the app shows plain coordinates instead of a name.
+  </li>
+  <li>
+    <strong>Map tiles, from OpenFreeMap.</strong> When you open the map screen, the app downloads map
+    tiles from <code>tiles.openfreemap.org</code>, a free service built on OpenStreetMap data. That server
+    necessarily receives your IP address and the area of the map you are looking at. It never receives
+    your photos, your library, your list of coordinates, or anything that identifies you as a person. Map
+    data © OpenStreetMap contributors. If you never open the map screen, no tile request is ever made.
+  </li>
+</ol>
+<div class="note">
+  <p>
+  <strong>In one sentence:</strong> to name a place, Chronicle sends that one coordinate to your phone's
+  geocoding service, which is usually Google; to draw the map, it downloads tiles from OpenFreeMap. It
+  sends nothing else, stores neither request, and neither happens unless you grant location access and
+  open the map.
+  </p>
+</div>
+<h3>Turning it off</h3>
+<p>
+Deny or revoke <code>ACCESS_MEDIA_LOCATION</code> in Android Settings → Apps → Chronicle → Permissions.
+Chronicle then indexes no coordinates at all: the map shows nothing, and no geocoding or tile request is
+made. Every other part of the app keeps working exactly as before.
+</p>
 </p>
 <p>
 Version 1.0 groups faces automatically as part of normal use and does not include a separate on/off
@@ -185,7 +259,7 @@ storage after using it, or to uninstall it. We intend to add a control for this 
 this policy will be updated when we do.
 </p>
 
-<h2 id="permissions">4. Permissions and why each one exists</h2>
+<h2 id="permissions">5. Permissions and why each one exists</h2>
 <table>
   <tr><th>Permission</th><th>What it allows</th><th>Why Chronicle asks</th></tr>
   <tr>
@@ -211,22 +285,39 @@ this policy will be updated when we do.
   <tr>
     <td><code>FOREGROUND_SERVICE</code><br><code>FOREGROUND_SERVICE_DATA_SYNC</code></td>
     <td>Keep a short task running with a visible notification</td>
-    <td>So face indexing is not killed when you leave the app, and so you can always see that it is running.</td>
+    <td>So background indexing is not killed when you leave the app, and so you can always see that it is running.</td>
+  </tr>
+  <tr>
+    <td><code>ACCESS_MEDIA_LOCATION</code></td>
+    <td>Read the GPS coordinates stored inside your photos (Android 10 and later)</td>
+    <td>To place photos on the map. Without this permission Android hides the coordinates, and the map stays empty. See <a href="#location">section 4</a>.</td>
+  </tr>
+  <tr>
+    <td><code>INTERNET</code></td>
+    <td>Make network requests</td>
+    <td>Only for two things: looking up a place name from a coordinate, and downloading map tiles. It is never used to upload your photos, videos, face data or metadata.</td>
   </tr>
 </table>
 <p>
-Chronicle does <strong>not</strong> request the camera, microphone, location, contacts, calendar,
-phone state, SMS, activity recognition or internet permissions.
+Chronicle does <strong>not</strong> request the camera, microphone, contacts, calendar, phone state, SMS
+or activity recognition permissions, and it does <strong>not</strong> request your device's own location
+(<code>ACCESS_FINE_LOCATION</code> / <code>ACCESS_COARSE_LOCATION</code>). The only location-related
+permission it asks for is <code>ACCESS_MEDIA_LOCATION</code>, which unlocks GPS coordinates already
+stored inside your files — not where your phone is now.
 </p>
 
-<h2 id="stored">5. What is stored on your device</h2>
+<h2 id="stored">6. What is stored on your device</h2>
 <p>
 Everything Chronicle saves lives in the app's private storage area, which other apps cannot read:
 </p>
 <ul>
   <li><strong>A local database</strong> holding your favourites, the face embeddings and people groups
   described above, which items have been processed, and a search index of terms so search is fast.</li>
-  <li><strong>Your settings</strong> — whether videos autoplay, and which view mode you prefer.</li>
+  <li><strong>The coordinates of your geotagged photos and videos</strong>, and a small cache of place
+  names (city, state, country) for the areas you have taken photos in. See
+  <a href="#location">section 4</a>.</li>
+  <li><strong>Your settings</strong> — whether videos autoplay, which view mode you prefer, and how face
+  indexing is scheduled.</li>
   <li><strong>An image cache</strong> in the app's cache directory, so thumbnails and photos load quickly
   when you scroll. Android and the app clear this cache as space is needed; you can also clear it yourself
   from Android's storage settings.</li>
@@ -237,24 +328,34 @@ are. The one exception is the thumbnail cache described above, which is a displa
 your library.
 </p>
 
-<h2 id="notdo">6. What Chronicle does not do</h2>
+<h2 id="notdo">7. What Chronicle does not do</h2>
 <ul>
   <li>No user accounts, sign-in, profiles or cloud sync.</li>
   <li>No advertising, and no advertising identifiers.</li>
   <li>No analytics, telemetry, crash reporting or usage tracking of any kind.</li>
-  <li>No third-party SDKs that collect data. The only Google components are ML Kit's face detection and
-  TensorFlow Lite, both of which run entirely on your device.</li>
-  <li>No selling, renting or sharing of your information — we never receive it.</li>
-  <li>No access to your contacts, location, microphone, calendar or messages.</li>
-  <li>No upload of your photos, videos, metadata or face data to any server, ours or anyone else's.</li>
+  <li>No third-party SDKs that collect data. The Google components are ML Kit's face detection and
+  TensorFlow Lite, both of which run entirely on your device, plus the Android system geocoder described
+  in <a href="#location">section 4</a>.</li>
+  <li>No selling, renting or sharing of your information — we never receive it, and we have no server to
+  receive it with.</li>
+  <li>No access to your contacts, microphone, calendar or messages, and no access to your device's own
+  location.</li>
+  <li>No upload of your photos, videos, face data or file metadata to any server, ours or anyone else's.
+  The only outbound requests the app makes are the two in <a href="#location">section 4</a>: one
+  coordinate at a time to your phone's geocoding service, and map tiles from OpenFreeMap.</li>
 </ul>
 
-<h2 id="third">7. Third parties and other apps</h2>
+<h2 id="third">8. Third parties and other apps</h2>
 <p>
-There is no third party that receives your data from Chronicle. For completeness, here is what is
-involved in making the app work:
+Chronicle has no server of its own, but two third-party services do receive something from it. Both are
+described in <a href="#location">section 4</a>; this is the same information gathered in one place.
 </p>
 <ul>
+  <li><strong>Google, through Android's geocoder</strong> — receives one coordinate at a time, plus your
+  IP address, when Chronicle looks up a place name. It returns a name and nothing else is sent about you.</li>
+  <li><strong>OpenFreeMap</strong> (<code>tiles.openfreemap.org</code>) — receives your IP address and the
+  map area you are viewing when you open the map screen, and serves the map tiles. Map data ©
+  OpenStreetMap contributors.</li>
   <li><strong>Google ML Kit (face detection)</strong> and <strong>TensorFlow Lite</strong> — on-device
   machine learning libraries bundled inside the app. They process images locally and have no network
   access in this app.</li>
@@ -272,7 +373,7 @@ app receives the file, and its own privacy policy governs what happens next. Tha
 started by you, one file at a time, with a system confirmation.
 </p>
 
-<h2 id="backup">8. Android backup</h2>
+<h2 id="backup">9. Android backup</h2>
 <p>
 Android can back up app data to your own Google account, so that your apps come back when you set up a
 new phone. Chronicle allows this, which means your favourites, your settings and the face grouping
@@ -286,7 +387,7 @@ device in any form, turn Android backup off for this app, or clear the app's sto
 using it.
 </p>
 
-<h2 id="sharing">9. Sharing, editing and the clipboard</h2>
+<h2 id="sharing">10. Sharing, editing and the clipboard</h2>
 <ul>
   <li><strong>Share and edit</strong> — when you share a photo or video, or send it to an editor, Chronicle
   hands that single file to the app you choose through Android's share sheet, with temporary read
@@ -299,7 +400,7 @@ using it.
   delete anything without that confirmation on modern Android versions.</li>
 </ul>
 
-<h2 id="delete">10. Deletion and retention</h2>
+<h2 id="delete">11. Deletion and retention</h2>
 <p>
 We do not retain your data, because we never receive it. There is no server-side copy and no backup of
 ours. On your device:
@@ -308,8 +409,8 @@ ours. On your device:
   <li><strong>Delete individual media</strong> in the app, with the system confirmation prompt. This
   removes the file from your device's library.</li>
   <li><strong>Clear the app's data</strong> — Android Settings → Apps → Chronicle → Storage &amp; cache →
-  Clear storage. This erases the database (favourites, face data, search index) and your settings. Your
-  photos and videos are untouched.</li>
+  Clear storage. This erases the database (favourites, face data, search index, photo coordinates and the
+  cached place names) and your settings. Your photos and videos are untouched.</li>
   <li><strong>Uninstall Chronicle</strong> — removes everything the app ever stored on your device.</li>
 </ul>
 <p>
@@ -324,11 +425,13 @@ until that backup is replaced or deleted — see <a href="#backup">section 8</a>
   </p>
 </div>
 
-<h2 id="security">11. Security</h2>
+<h2 id="security">12. Security</h2>
 <p>
-Because nothing is transmitted, there is no data in transit to protect. On the device, Chronicle's
-database, settings and cache sit in the app's private storage, which Android isolates from other apps.
-Chronicle does not request the internet permission, so no code path in the app can send your data out.
+Chronicle's outbound traffic is deliberately tiny and always encrypted. The only requests the app ever
+makes are HTTPS calls to your phone's geocoding service, to turn one coordinate into a place name, and to
+OpenFreeMap, to download map tiles. No photo, video, face embedding, filename or list of locations is
+ever transmitted. On the device, the database, settings and cache sit in the app's private storage, which
+Android isolates from other apps.
 </p>
 <p>
 No system is perfectly secure. Someone with physical access to an unlocked device, a rooted device, or
@@ -337,7 +440,7 @@ lock of its own, so the security of your photos is the security of your phone �
 on and your OS updated.
 </p>
 
-<h2 id="children">12. Children</h2>
+<h2 id="children">13. Children</h2>
 <p>
 Chronicle is a general-purpose gallery, not directed at children, and it has no accounts, no social
 features, no advertising and no way to communicate with anyone. We do not knowingly collect information
@@ -348,7 +451,7 @@ Your photo library may of course contain images of children. Those images are pr
 other image — on your device, never uploaded — and face grouping on them stays on the device too.
 </p>
 
-<h2 id="rights">13. Your rights and choices</h2>
+<h2 id="rights">14. Your rights and choices</h2>
 <p>
 Privacy laws such as India's Digital Personal Data Protection Act, 2023, and the GDPR in Europe, give
 you rights over personal data — to know what is processed, to access it, to correct it, and to have it
@@ -361,23 +464,25 @@ data is:
   <li><strong>Correction</strong> — edit or rename anything through your device's file tools or another
   gallery app; Chronicle re-reads the library.</li>
   <li><strong>Erasure</strong> — clear the app's storage or uninstall it (see
-  <a href="#delete">section 10</a>).</li>
-  <li><strong>Withdrawing access</strong> — revoke the photo and video permissions, or switch Chronicle
-  to limited access, in Android Settings → Apps → Chronicle → Permissions. The app will simply show fewer
-  items.</li>
+  <a href="#delete">section 11</a>).</li>
+  <li><strong>Withdrawing access</strong> — revoke the photo and video permissions, switch Chronicle to
+  limited access, or revoke <code>ACCESS_MEDIA_LOCATION</code> to stop location indexing entirely, in
+  Android Settings → Apps → Chronicle → Permissions. The app will simply show fewer items, and with
+  location access off it stops reading coordinates and makes no geocoding or tile requests.</li>
   <li><strong>Questions or complaints</strong> — write to the address in
-  <a href="#contact">section 15</a> and we will answer.</li>
+  <a href="#contact">section 16</a> and we will answer.</li>
 </ul>
 
-<h2 id="changes">14. Changes to this policy</h2>
+<h2 id="changes">15. Changes to this policy</h2>
 <p>
-If a future version of Chronicle changes what it accesses or how it handles data — for example if a
-feature is added that needs network access — this policy will be updated before that version is
-released, and the "last updated" date at the top will change. The current version of this policy always
+If a future version of Chronicle changes what it accesses or how it handles data, this policy will be
+updated before that version is released, and the "last updated" date at the top will change. Version 1.2
+added the photo map: it corrected the earlier statement that the app has no internet permission, and
+described the two services the map uses. The current version of this policy always
 lives at this URL, which is the link used on the Google Play listing.
 </p>
 
-<h2 id="contact">15. Contact</h2>
+<h2 id="contact">16. Contact</h2>
 <p>
 Chronicle is developed by <strong>Mayur Jindal</strong>.<br>
 Email: <a href="mailto:mayurjindal905@gmail.com">mayurjindal905@gmail.com</a>
@@ -387,26 +492,31 @@ Questions about this policy, or about privacy in Chronicle, are welcome at that 
 <a href="./data-deletion.html">how to delete your data</a>.
 </p>
 
-<h2 id="datasafety">16. Summary for the Google Play Data safety section</h2>
+<h2 id="datasafety">17. Summary for the Google Play Data safety section</h2>
 <p>
 This section restates the above in the terms Google Play uses, so the two can be checked against each
 other.
 </p>
 <table>
   <tr><th>Play Data safety question</th><th>Answer for Chronicle</th></tr>
-  <tr><td>Does the app collect or share any of the required user data types?</td><td>No. Nothing is transmitted off the device by the developer, so nothing is collected or shared.</td></tr>
-  <tr><td>Is all of the user data encrypted in transit?</td><td>Not applicable — there is no transmission. The app has no internet permission.</td></tr>
+  <tr><td>Does the app collect or share any of the required user data types?</td><td><strong>Yes — location.</strong> Photo GPS coordinates are sent to the system geocoding service (Google on most devices) to obtain a place name. The request is transient: Chronicle stores neither the request nor any response beyond the resulting place name on the device. The developer receives nothing. No other data type is collected or shared.</td></tr>
+  <tr><td>Which location data?</td><td>Approximate and precise location, read from the GPS metadata already stored in your photos and videos — never from the device's own location sensors.</td></tr>
+  <tr><td>Purpose of that sharing</td><td>App functionality — displaying where a photo was taken and naming that place on the map.</td></tr>
+  <tr><td>Is the data required?</td><td>No. It is optional and gated behind the <code>ACCESS_MEDIA_LOCATION</code> permission. Deny it and no location data leaves the device.</td></tr>
+  <tr><td>Is all of the user data encrypted in transit?</td><td>Yes — all requests use HTTPS.</td></tr>
   <tr><td>Can users request that their data be deleted?</td><td>Yes — by clearing the app's storage or uninstalling it, at any time, with no request to us needed.</td></tr>
-  <tr><td>Data processed on the device only</td><td>Photos and videos, photo metadata, face data used for grouping, app settings and favourites.</td></tr>
-  <tr><td>Permissions declared</td><td>Photo and video read access (including limited access), notifications, foreground service.</td></tr>
+  <tr><td>Data processed on the device only</td><td>Photos and videos, photo metadata, face data used for grouping, app settings, favourites, and the coordinate database with its place-name cache.</td></tr>
+  <tr><td>Permissions declared</td><td>Photo and video read access (including limited access), media location, notifications, foreground service, internet.</td></tr>
   <tr><td>Ads or analytics SDKs</td><td>None.</td></tr>
 </table>
 
 <hr>
 
 <footer>
-  <p>Privacy Policy for Chronicle · Last updated 2 November 2026 · Version 1.0</p>
-  <p>Document history: 1.0 — 2 November 2026 — first published, covering Chronicle 1.0 for Android.</p>
+  <p>Privacy Policy for Chronicle · Last updated 23 November 2026 · Version 1.2</p>
+  <p>Document history: 1.0 — 2 November 2026 — first published, covering Chronicle 1.0 for Android.<br>
+  1.2 — 23 November 2026 — added the photo map, location indexing and place names; corrected the earlier
+  statement that the app has no internet permission.</p>
 </footer>
 
 </main>
