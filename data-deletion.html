@@ -33,7 +33,7 @@
 <main>
 
 <h1>Data Deletion for Chronicle</h1>
-<p class="updated">Last updated: 2 November 2026</p>
+<p class="updated">Last updated: 23 November 2026 · Applies to Chronicle for Android, version 1.2 and later</p>
 
 <p>
 Chronicle has no accounts and no server. Everything the app saves lives only on your own device, which
@@ -43,7 +43,7 @@ means you are always in full control of deleting it — and there is no copy on 
 <div class="summary">
 <h2>In short</h2>
 <ul>
-  <li>No account, no server, no cloud copy of anything.</li>
+  <li>No account and no server of ours, and no cloud copy of anything.</li>
   <li>You can delete all of the app's data yourself, at any time, using any of the steps below.</li>
   <li>Deleting Chronicle's data never touches your photos and videos — those stay in your library.</li>
   <li>You can also email us and we will help.</li>
@@ -54,11 +54,16 @@ means you are always in full control of deleting it — and there is no copy on 
 <ul>
   <li>A local database of your favourites, the face grouping data used to sort photos by person, and a
   search index.</li>
-  <li>Your in-app settings (autoplay videos, default view mode).</li>
+  <li>The GPS coordinates of your geotagged photos and videos, plus a small cache of place names (city,
+  state, country) for the areas you have taken photos in.</li>
+  <li>Your in-app settings (autoplay videos, default view mode, face indexing schedule).</li>
   <li>A thumbnail cache so scrolling is fast.</li>
 </ul>
 <p>
-It does not store your photos or videos, and it does not store anything on a server.
+It does not store your photos or videos, and it does not store anything on a server of ours. The only
+information that ever leaves your device is a single coordinate sent to your phone's geocoding service to
+obtain a place name, and requests for map tiles — both described in the
+<a href="./index.html#location">privacy policy, section 4</a>.
 </p>
 
 <h2>How to delete your data</h2>
@@ -72,6 +77,12 @@ It does not store your photos or videos, and it does not store anything on a ser
   <li>
     <strong>Uninstall the app.</strong> Uninstalling Chronicle removes everything it ever stored on your
     device.
+  </li>
+  <li>
+    <strong>Stop location indexing.</strong> If you only want to remove location data, revoke
+    <code>ACCESS_MEDIA_LOCATION</code> in Android Settings → Apps → Chronicle → Permissions, then use
+    Clear storage to drop the coordinates and cached place names that are already saved. With the
+    permission off, Chronicle reads no coordinates and makes no geocoding or map-tile requests.
   </li>
   <li>
     <strong>Delete individual photos or videos.</strong> Inside Chronicle, delete any item you no longer
